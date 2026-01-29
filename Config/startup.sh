@@ -37,6 +37,9 @@ PACKAGES=(
     "nixpkgs.zsh"
     "nixpkgs.zsh-autosuggestions"
     "nixpkgs.zsh-syntax-highlighting"
+    "nixpkgs.oh-my-posh"
+    "nixpkgs.fastfetch"
+    "nixpkgs.neovim"
 )
 
 echo -ne "${BLUE}::${NC} Installing ${#PACKAGES[@]} packages...  "
@@ -59,6 +62,22 @@ if [ $EXIT_CODE -eq 0 ]; then
 else
     echo -e "\b\033[0;31m[FAIL]${NC}"
     echo -e "${GRAY}An error occurred. Check /tmp/epidots_install.log for details.${NC}"
+fi
+
+printf "${BLUE}::${NC} Installing Oh My Zsh...                 "
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null 2>&1 && echo -e "${GREEN}[DONE]${NC}" || echo -e "\033[0;31m[FAIL]${NC}"
+else
+    echo -e "${GREEN}[SKIP]${NC}"
+fi
+
+printf "${BLUE}::${NC} Installing LazyVim...                   "
+if [ ! -d "$HOME/.config/nvim" ]; then
+    git clone https://github.com/LazyVim/starter "$HOME/.config/nvim" > /dev/null 2>&1
+    rm -rf "$HOME/.config/nvim/.git"
+    echo -e "${GREEN}[DONE]${NC}"
+else
+    echo -e "${GREEN}[SKIP]${NC}"
 fi
 
 printf "${BLUE}::${NC} Configuring Pywalfox...                 "
