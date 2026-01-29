@@ -132,6 +132,7 @@ cdg() {
         return 1
     fi
 }
+unalias gg 2>/dev/null
 
 # All in one git command
 gg() {
