@@ -14,7 +14,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 STEP=1
-TOTAL_STEPS=9
+TOTAL_STEPS=7
 
 run_step() {
     local description=$1
@@ -42,17 +42,6 @@ run_step "Downloading Default Wallpapers" \
         rm -rf \"$AFS_DIR/wallpapers/.git\"; \
     else \
         echo \"[SKIP] Folder already exists\"; \
-    fi"
-
-run_step "Installing Oh My Posh & Fastfetch" \
-    "nix-env -iA nixos.oh-my-posh nixos.fastfetch nixos.neovim nixos.gcc nixos.gnumake nixos.unzip"
-
-run_step "Installing LazyVim" \
-    "if [ ! -d \"$HOME/.config/nvim\" ]; then \
-        git clone https://github.com/LazyVim/starter \"$HOME/.config/nvim\" && \
-        rm -rf \"$HOME/.config/nvim/.git\"; \
-    else \
-        echo \"[SKIP] Already installed\"; \
     fi"
 
 run_step "Installing Vim plugins" \
